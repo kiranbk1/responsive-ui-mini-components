@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 2: Responsive Pricing Cards</title>
+  <style>
+    /* 1. Box Model Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      padding: 2.5rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pricing-wrapper {
+      width: 100%;
+      max-width: 1050px;
+      text-align: center;
+    }
+
+    /* Billing Toggle Pill */
+    .billing-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: #e2e8f0;
+      padding: 0.3rem;
+      border-radius: 999px;
+      margin-bottom: 2.5rem;
+      gap: 0.25rem;
+    }
+
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+    }
+
+    .toggle-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    /* 2. Mobile Base Grid (1-Column Stack) */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      text-align: left;
+    }
+
+    .plan-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Keyframes Glow Animation for Featured Card */
+    @keyframes proGlow {
+      0%, 100% {
+        box-shadow: 0 0 0 2px #0284c7, 0 8px 24px rgba(2, 132, 199, 0.15);
+      }
+      50% {
+        box-shadow: 0 0 0 4px #38bdf8, 0 12px 32px rgba(2, 132, 199, 0.32);
+      }
+    }
+
+    .plan-card.featured {
+      border-color: #0284c7;
+      position: relative;
+      animation: proGlow 3s infinite ease-in-out;
+    }
+
+    .popular-tag {
+      display: inline-block;
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .plan-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-price {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+
+    .plan-price span {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #64748b;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      color: #475569;
+      font-size: 0.95rem;
+    }
+
+    .feature-list li::before {
+      content: "✓ ";
+      color: #0284c7;
+      font-weight: 700;
+    }
+
+    .select-btn {
+      width: 100%;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+      transition: background-color 0.2s ease;
+    }
+
+    .select-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .plan-card.featured .select-btn {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+
+    .plan-card.featured .select-btn:hover {
+      background: #0369a1;
+    }
+
+    /* 3. Desktop Media Query Breakpoint (> 850px) */
+    @media (min-width: 850px) {
+      .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="pricing-wrapper">
+    <div class="billing-toggle">
+      <button class="toggle-btn active">Monthly</button>
+      <button class="toggle-btn">Annual</button>
+    </div>
+
+    <section class="pricing-grid">
+      <!-- Card 1: Starter -->
+      <article class="plan-card">
+        <div>
+          <h2 class="plan-name">Starter</h2>
+          <div class="plan-price">Free</div>
+          <ul class="feature-list">
+            <li>Up to 3 active projects</li>
+            <li>Basic UI components</li>
+            <li>Community support</li>
+          </ul>
+        </div>
+        <button class="select-btn">Select</button>
+      </article>
+
+      <!-- Card 2: Pro Plan (Featured) -->
+      <article class="plan-card featured">
+        <div>
+          <span class="popular-tag">POPULAR</span>
+          <h2 class="plan-name">Pro Plan</h2>
+          <div class="plan-price">₹799<span>/mo</span></div>
+          <ul class="feature-list">
+            <li>Unlimited projects</li>
+            <li>Full component library</li>
+            <li>Priority email support</li>
+            <li>Custom theme exports</li>
+          </ul>
+        </div>
+        <button class="select-btn">Select Pro</button>
+      </article>
+
+      <!-- Card 3: Team -->
+      <article class="plan-card">
+        <div>
+          <h2 class="plan-name">Team</h2>
+          <div class="plan-price">₹1,999<span>/mo</span></div>
+          <ul class="feature-list">
+            <li>Everything in Pro</li>
+            <li>Up to 10 team seats</li>
+            <li>Shared design tokens</li>
+            <li>24/7 dedicated support</li>
+          </ul>
+        </div>
+        <button class="select-btn">Select</button>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
